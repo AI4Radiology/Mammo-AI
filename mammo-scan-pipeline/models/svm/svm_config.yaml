@@ -1,0 +1,17 @@
+svm_settings:
+  general:
+    random_state: 42
+    probability: true
+    verbose: false
+    
+  # Configuración del modelo SVM
+  model:
+    kernel: 'rbf'
+    C: 2
+    gamma: 0.01
+    class_weight: null
+    tol: 0.0001
+    #degree: 4
+    
+
+    

@@ -1,0 +1,42 @@
+ensemble_settings:
+  data:
+    # Datos para evaluación del ensemble completo
+    test_data_path: 'data/features/df_sel_abcd.csv'
+    features_path: null
+  
+  # Rutas a modelos pre-entrenados (archivos .pkl)
+  hierarchy:
+    level1:
+      name: 'denso_nodenso'
+      classification_type: 'b'
+      model_path: 'saved_models\modelo_b_20251115_152132\modelo_b.pkl'  # Ruta al modelo entrenado
+      
+    level2a:
+      name: 'ab'
+      classification_type: 'ab'
+      model_path: 'saved_models\modelo_ab_20251115_153020\modelo_ab.pkl'  # Ruta al modelo entrenado
+      
+    level2b:
+      name: 'cd'
+      classification_type: 'cd'
+      model_path: 'saved_models\modelo_cd_20251115_150756\modelo_cd.pkl'  # Ruta al modelo entrenado
+  
+  # Configuración de preprocesamiento (para BaseTrainer)
+  preprocessing:
+    target_variable: 'Tipo_Tejido'
+  
+  # División de datos para evaluación
+  data_split:
+    test_size: 0.25
+    random_state: 42
+    stratify: true
+    
+  metrics:
+    precision_average: 'weighted'
+    recall_average: 'weighted'
+    f1_average: 'weighted'
+  
+  class_mapping:
+    final_classes: ['A', 'B', 'C', 'D']
+    denso_label: 0
+    nodenso_label: 1

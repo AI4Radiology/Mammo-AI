@@ -1,0 +1,23 @@
+xgboost_settings:
+  general:
+    random_state: 42
+    verbosity: 0
+    
+  # Configuración del modelo XGBoost (ajustada para evitar overfitting)
+  model:
+    n_estimators: 50
+    max_depth: 5      # Reducido de 6 a 3 para evitar overfitting
+    learning_rate: 0.05 # Reducido de 0.3 a 0.1 para aprendizaje más gradual
+    # objective y num_class se configuran automáticamente según el número de clases
+    # binary:logistic para 2 clases, multi:softmax para 3+ clases
+    eval_metric: 'logloss'    # Métrica de evaluación (logloss funciona para binario y multiclase)
+    subsample: 0.6       # Reducido de 1.0 a 0.8 para añadir regularización
+    colsample_bytree: 0.6    # Reducido de 1.0 a 0.8 para añadir regularización
+    gamma: 0.1          # Aumentado de 0 a 0.1 (mínima reducción de pérdida para split)
+    min_child_weight: 1       # Aumentado de 1 a 3 (más muestras por hoja)
+    reg_alpha: 0          # Aumentado de 0 a 0.1 (L1 regularization)
+    reg_lambda: 0.1        # Aumentado de 1 a 1.5 (L2 regularization)
+
+    
+
+

@@ -1,0 +1,84 @@
+train_settings:
+  model:
+    # Opciones disponibles:
+    # 'svm': SVM básico
+    # 'gridsearch_svm': SVM con GridSearch
+    # 'adaboost': AdaBoost básico
+    # 'gridsearch_adaboost': AdaBoost con GridSearch
+    # 'logistic_lasso': Logistic Regression con Lasso
+    # 'gridsearch_logistic_lasso': Logistic Lasso con GridSearch
+    # 'xgboost': XGBoost básico
+    # 'gridsearch_xgboost': XGBoost con GridSearch
+    type: 'logistic_lasso'
+
+    # Mapeo de type -> module_path para resolver dinámicamente
+    module_map:
+      svm: 'models.svm.svm_model'
+      gridsearch_svm: 'models.gridsearch.gridsearch_model'
+      adaboost: 'models.adaboost.adaboost_model'
+      gridsearch_adaboost: 'models.gridsearch_adaboost.gridsearch_adaboost_model'
+      logistic_lasso: 'models.logistic_lasso.logistic_lasso_model'
+      gridsearch_logistic_lasso: 'models.gridsearch_logistic_lasso.gridsearch_logistic_lasso_model'
+      xgboost: 'models.xgboost.xgboost_model'
+      gridsearch_xgboost: 'models.gridsearch_xgboost.gridsearch_xgboost_model'
+      pytorch_tabular: 'models.pytorch_tabular.pytorch_tabular_model'
+
+
+  # CONFIGURACIÓN DE PREPROCESAMIENTO
+  preprocessing:
+    # Tipo de escalado
+    scaler_type: 'standard'   # 'standard' multiclase o 'minmax' binario
+    
+    # Variable objetivo en el dataset
+    target_variable: 'Tipo_Tejido'
+    
+    # TIPOS DE CLASIFICACIÓN DISPONIBLES:
+    # 'b': Binario (A,B=0 vs C,D=1) - para datos con etiquetas A,B,C,D o 0,1,2,3
+    # 'b_binary': Binario puro (0 vs 1) - para datasets ya en formato binario
+    # 'm': Multiclase (A=0, B=1, C=2, D=3)
+    # 'ab': Solo A vs B (A=0, B=1) 
+    # 'cd': Solo C vs D (C=0, D=1) 
+    classification_type: 'b_binary'
+
+    # Mapeos de clases configurables por tipo (incluye alias numéricos)
+    class_mappings:
+      b: {A: 0, B: 0, C: 1, D: 1, 0: 0, 1: 0, 2: 1, 3: 1}
+      #b: {A: 0, B: 0, C: 1, D: 1, 1: 0, 2: 0, 3: 1, 4: 1}
+      b_binary: {0: 0, 1: 1}
+      m: {A: 0, B: 1, C: 2, D: 3, 0: 0, 1: 1, 2: 2, 3: 3} 
+      #m: {A: 0, B: 1, C: 2, D: 3, 1: 0, 2: 1, 3: 2, 4: 3} 
+      ab: {A: 0, B: 1, 0: 0, 1: 1}
+      cd: {C: 0, D: 1, 2: 0, 3: 1}
+    
+    # Usar SMOTE para balancear clases
+    use_smote: false
+    smote_params:
+      random_state: 42
+      # Proporción de sobremuestreo:
+      # 'auto' o 'minority': balancea automáticamente la clase minoritaria
+      # 'all': sobremuestrea todas las clases menos la mayoritaria
+      # dict: especificar proporción personalizada {clase: cantidad}
+      sampling_strategy: 'auto'  # Balancea automáticamente
+      k_neighbors: 5  # Vecinos para generar muestras sintéticas
+      #sampling_strategy: {0: 397, 1: 890, 2: 5735, 3: 1012} 
+      #sampling_strategy: {0: 4241, 1: 1000}
+      
+  # CONFIGURACIÓN DE DIVISIÓN DE DATOS
+  data_split:
+    test_size: 0.3
+    random_state: 42
+    stratify: true            
+    
+  # CONFIGURACIÓN DE VALIDACIÓN CRUZADA
+  cross_validation:
+    cv_folds: 2               # Número de folds para CV
+    
+  # CONFIGURACIÓN DE MÉTRICAS
+  metrics:
+    # Tipo de promedio para métricas multi-clase
+    # 'weighted': Ponderado por soporte de cada clase
+    # 'macro': Promedio simple de todas las clases
+    # 'micro': Calcular globalmente
+    precision_average: 'macro'
+    recall_average: 'macro'
+    f1_average: 'macro'

@@ -1,0 +1,28 @@
+gridsearch_settings:
+  general:
+    cv_folds: 2
+    scoring: 'accuracy'   # Recomendado para multiclase balanceado
+    n_jobs: -1
+    verbose: 1
+    random_state: 42
+    return_train_score: true
+
+  balanced:
+    # Valores centrados en tu C=7
+    C: [4, 5, 6, 7, 8, 9, 10]
+
+    # Gamma centrado en 0.85664
+    gamma: [0.6, 0.7, 0.8, 0.85664, 0.9, 1.0, 1.2]
+
+    # Tolerancia (afecta convergencia)
+    tol: [0.001, 0.01, 0.03, 0.037693, 0.05]
+
+    # Mantén el kernel ganador
+    kernel: ['rbf']
+
+    # Class weight sigue fijo
+    class_weight: [null]
+
+    # Shrinking y probability se mantienen igual
+    shrinking: [true]
+    probability: [true]

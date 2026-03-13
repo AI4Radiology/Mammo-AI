@@ -1,0 +1,16 @@
+gridsearch_xgboost_settings:
+  general:
+    cv_folds: 5
+    scoring: 'accuracy'
+    n_jobs: -1
+    verbose: 1
+    random_state: 42
+    return_train_score: true
+
+  param_grid:
+    n_estimators: [50, 75, 100]            # Explora mayor capacidad
+    max_depth: [2, 3, 4, 5]                # Profundidades controladas
+    learning_rate: [0.03, 0.05, 0.1, 0.2]  # Rango amplio, de suave a moderado
+    subsample: [0.6, 0.7, 0.8, 0.9]
+    colsample_bytree: [0.6, 0.7, 0.8, 0.9]
+    gamma: [0.05, 0.1, 0.2, 0.3]

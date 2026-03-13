@@ -1,0 +1,27 @@
+gridsearch_logistic_lasso_settings:
+  general:
+    cv_folds: 5  # ← Reducido para evitar folds con una sola clase en datos desbalanceados
+    scoring: 'f1_weighted'  # ← Mejor métrica que accuracy para clasificación
+    n_jobs: -1
+    verbose: 2  # ← Más información durante búsqueda
+    random_state: 42
+    return_train_score: true
+
+  balanced:
+    # Exploración FINA alrededor de C=100.0
+    C: [50.0, 80.0, 100.0, 120.0, 150.0]
+    
+    # Tu mejor configuración usa L1 (Lasso)
+    penalty: ['l1', 'l2']
+    
+    # liblinear es óptimo para L1
+    solver: ['liblinear']
+    
+    # max_iter=1000 es suficiente, explorar ligeramente
+    max_iter: [1000, 1500]
+    
+    # Agregar tolerancia para convergencia más robusta
+    tol: [0.0001, 0.00001]
+    
+    # Balanceo de clases (forzado para datos desbalanceados)
+    class_weight: ['balanced']

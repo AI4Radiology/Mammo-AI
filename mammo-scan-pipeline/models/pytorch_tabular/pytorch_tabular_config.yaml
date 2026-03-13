@@ -1,0 +1,27 @@
+pytorch_tabular_settings:
+  data:
+    target: ['Tipo_Tejido']
+    
+  trainer:
+    auto_lr_find: false
+    batch_size: 256
+    max_epochs: 150
+    early_stopping: 'valid_loss'
+    early_stopping_patience: 15
+    checkpoints: 'valid_loss'
+    load_best: true
+    progress_bar: 'simple'
+    
+  optimizer:
+    optimizer: 'AdamW'  
+    optimizer_params:
+      weight_decay: 0.0008130247270708705
+    
+  model:
+    task: 'classification'
+    layers: "2048-1024-512-256-128"
+    activation: 'ReLU'
+    learning_rate: 0.003551111522903985
+    dropout: 0.49324134802701547
+    use_batch_norm: true
+    initialization: 'kaiming'

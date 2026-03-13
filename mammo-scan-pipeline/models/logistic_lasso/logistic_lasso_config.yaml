@@ -1,0 +1,14 @@
+logistic_lasso_settings:
+  general:
+    random_state: 42
+    max_iter: 1000
+    
+  # Configuración del modelo Logistic Regression con Lasso
+  model:
+    # Penalización L1 (Lasso)
+    penalty: 'l1'
+    # Parámetro de regularización
+    C: 1.5
+    tol: 0.0004
+    # Solver compatible con L1
+    solver: 'liblinear'
